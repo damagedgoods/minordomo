@@ -11,6 +11,8 @@ from minor_app.models import Message
 
 def my_cron_job():
 
+    print("Iniciando cron job..")
+
     # Mirar el último leído
     last_id = Message.objects.aggregate(Max('update_id'))
     offset = 0
@@ -30,6 +32,8 @@ def my_cron_job():
         new_message.save()
 
     # Procesar cada mensaje
+        
+    print("Finalizando cron job")
 
 
 my_cron_job()
