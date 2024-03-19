@@ -17,6 +17,8 @@ def index(request):
 def message(request, message_id):    
     template = loader.get_template("message.html")
     message = Message.objects.get(pk=message_id)
+    message.read_status = True
+    message.save()
     context = {
         "message": message
     }
