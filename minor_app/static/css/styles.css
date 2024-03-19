@@ -10,7 +10,7 @@
 }
 
 body {
-    background-color: #eee;
+    background-color: #f8f8f8;
 }
 
 div#main {
@@ -31,29 +31,63 @@ ul li {
 }
 
 ul li:hover {
-    background-color: #ffe
+    background-color: #f6f6f6
 }
 
 ul li a {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 24px;
+    padding: 16px 24px;
     text-decoration: none;
 }
 
 ul li .supertitle {
     display: block;
-    font-size: 14px;
+    font-size: 12px;
     color: #888;
 }
 
 ul li .title {
     margin-top: 8px;
     display: block;
-    font-size: 24px;
+    font-size: 21px;
 }
 
 .unread {
     font-weight: 800;
+}
+
+.container {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 40px;
+    width: 1000px;
+}
+
+.container h1 {
+    font-size: 48px;
+    font-weight: 800;
+    margin: 24px 0 0 0;
+}
+
+.container h2 {
+    font-size: 24px;
+    margin: 32px 0 0 0;
+    font-weight: 600;
+}
+
+.container p {
+    font-size: 16px;
+    margin: 8px 0 0 0;
+    color: #222;
+    font-weight: 350;
+    line-height: 22px;
+}
+
+a.small_link {
+    font-size: 14px;
+    color: #111;
+    text-decoration: none;
 }
