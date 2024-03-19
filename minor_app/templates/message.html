@@ -12,18 +12,9 @@
 </head>
 
 <body>
-
     <div id="main">
-	    <ul>
-            {% for m in messages %}
-            <li>
-                <a href="./message/{{ m.id }}">
-                    <span class="supertitle">{{ m.update_id }} | {{ m.date }}</span>
-                    <span class="title">{{ m.text }}</span>
-                </a>
-            </li>
-            {% endfor %}
-        </ul>
+        <a href="/minordomo/">Back</a>
+        {{ message.text }}
     </div>
 </body>
 </html>

@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name="index"),
-    #path("collection/new/", views.new, name="new_collection"),
+    path("message/<int:message_id>/", views.message, name="message"),
 ]
