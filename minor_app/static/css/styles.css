@@ -30,6 +30,10 @@ ul li {
     border-bottom: 1px solid #ddd;     
 }
 
+ul li:hover {
+    background-color: #ffe
+}
+
 ul li a {
     display: block;
     width: 100%;

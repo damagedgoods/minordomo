@@ -18,7 +18,7 @@
             {% for m in messages %}
             <li>
                 <a href="./message/{{ m.id }}">
-                    <span class="supertitle">{{ m.update_id }} | {{ m.date }}</span>
+                    <span class="supertitle">{{ m.date|date:"d F Y H:i" }}</span>
                     <span class="title {% if not m.read_status %} unread {% endif %}">{{ m.text }}</span>
                 </a>
             </li>
