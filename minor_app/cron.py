@@ -9,8 +9,11 @@ django.setup()
 
 import requests
 from minor_app.models import Message
+from datetime import datetime
 
 def my_cron_job():
+
+    print("Starting cronjob "+str(datetime.now()))
 
     # Mirar el último leído
     last_id = Message.objects.aggregate(Max('update_id'))
@@ -30,16 +33,12 @@ def my_cron_job():
         print(m['message']['text']+" - "+str(m['update_id']))
         new_message =  Message(text=m['message']['text'], date=timezone.now(), update_id = str(m['update_id']))
         new_message.save()
-
-    # Procesar cada mensaje
-        
-    # Responder
-    url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
-    params = {
-        'text': "text",
-        'chat_id': "@MinordomoBot"
-    }
-    response = requests.post(url, params=params)
+        url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
+        params = {
+            'text': "Noted \'"+m['message']['text']+"\'",
+            'chat_id': "43010062"
+        }
+        response = requests.post(url, params=params)
 
 my_cron_job()
 

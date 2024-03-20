@@ -128,5 +128,5 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CRONJOBS = [
-    ('* * * * *', 'minor_app.cron.my_cron_job', '>> ' + os.path.join(BASE_DIR,'log/debug7.log' + ' 2>&1 '))
+    ('* * * * *', 'minor_app.cron.my_cron_job', '>> ' + os.path.join(BASE_DIR,'log/cron_debug.log' + ' 2>&1 '))
 ]
