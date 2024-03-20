@@ -9,7 +9,7 @@ import json
 
 def index(request):    
     messages = Message.objects.all().order_by('-date')
-    p = Paginator(messages, 5)
+    p = Paginator(messages, 10)
     page_number = request.GET.get('page')
     try:
         page_obj = p.get_page(page_number)
@@ -17,7 +17,6 @@ def index(request):
         page_obj = p.page(1)
     except EmptyPage:
         page_obj = p.page(p.num_pages)
-    
 
     template = loader.get_template("index.html")
     

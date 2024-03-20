@@ -95,22 +95,29 @@ div#paginator {
     margin: 24px 0 0 0;
     width:100%;
     text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 div#paginator span {
     display: inline-block;
-    width: 500px;
+    flex-grow: 1;
 }
 
-div#paginator a {
-    width: 45px;
-    display: inline-block;
+div#paginator div {    
+    width: 50px;
+    text-align: left;
+}
+
+div#paginator div a {    
     font-size: 14px;
     color: #111;
     text-decoration: none;
     text-align: left;
 }
 
-div#paginator a.right {
+div#paginator div.right {    
+    flex-grow: 0;
     text-align: right;
 }
