@@ -19,15 +19,15 @@ div#main {
 }
 
 ul {
-    border: 1px solid #ddd;   
-    width: 500px;
+    border: 1px solid #ddd;       
     border-radius: 10px;
     background-color: white;
 }
 
 ul li {
     display: block;    
-    border-bottom: 1px solid #ddd;     
+    border-bottom: 1px solid #ddd;   
+    padding: 16px 24px;  
 }
 
 ul li:hover {
@@ -38,7 +38,6 @@ ul li a {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 16px 24px;
     text-decoration: none;
 }
 
@@ -90,4 +89,28 @@ a.small_link {
     font-size: 14px;
     color: #111;
     text-decoration: none;
+}
+
+div#paginator {
+    margin: 24px 0 0 0;
+    width:100%;
+    text-align: center;
+}
+
+div#paginator span {
+    display: inline-block;
+    width: 500px;
+}
+
+div#paginator a {
+    width: 45px;
+    display: inline-block;
+    font-size: 14px;
+    color: #111;
+    text-decoration: none;
+    text-align: left;
+}
+
+div#paginator a.right {
+    text-align: right;
 }

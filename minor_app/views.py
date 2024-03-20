@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
@@ -7,10 +8,21 @@ from .models import Message
 import json
 
 def index(request):    
-    template = loader.get_template("index.html")
     messages = Message.objects.all().order_by('-date')
+    p = Paginator(messages, 5)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)
+    except PageNotAnInteger:
+        page_obj = p.page(1)
+    except EmptyPage:
+        page_obj = p.page(p.num_pages)
+    
+
+    template = loader.get_template("index.html")
+    
     context = {
-        "messages": messages
+        "page_obj": page_obj
     }
     return HttpResponse(template.render(context, request))  
 
