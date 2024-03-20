@@ -3,15 +3,16 @@ from django.utils import timezone
 from django.db.models import Max
 from dotenv import load_dotenv
 
-sys.path.append('/Users/diegocano/workspace/minordomo/')
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minordomo.settings')
-django.setup()
-
-import requests
-from minor_app.models import Message
-from datetime import datetime
-
 def my_cron_job():
+
+    load_dotenv('../.env')
+    sys.path.append(str(os.environ.get('MY_ROOT_PATH')))
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minordomo.settings')
+    django.setup()
+
+    import requests
+    from minor_app.models import Message
+    from datetime import datetime
 
     print("Starting cronjob "+str(datetime.now()))
 
