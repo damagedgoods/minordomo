@@ -1,6 +1,7 @@
 import sys, os, django, datetime
 from django.utils import timezone
 from django.db.models import Max
+from dotenv import load_dotenv
 
 sys.path.append('/Users/diegocano/workspace/minordomo/')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minordomo.settings')
@@ -18,7 +19,8 @@ def my_cron_job():
         offset = int(last_id["update_id__max"]) + 1
 
     # Construir la llamada con el offset adecuado
-    url = "https://api.telegram.org/bot6819497556:AAGcgaZv6Fbyritjq6SyGLSgHWw-QseBfck/getUpdates?offset="+str(offset)
+    url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/getUpdates?offset="+str(offset)
+    
     response = requests.get(url)
     response_json = response.json()
     messages = response_json['result']
@@ -30,6 +32,14 @@ def my_cron_job():
         new_message.save()
 
     # Procesar cada mensaje
+        
+    # Responder
+    url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
+    params = {
+        'text': "text",
+        'chat_id': "@MinordomoBot"
+    }
+    response = requests.post(url, params=params)
 
 my_cron_job()
 
