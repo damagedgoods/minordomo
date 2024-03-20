@@ -15,30 +15,29 @@ def my_cron_job():
 
     print("Starting cronjob "+str(datetime.now()))
 
-    # Mirar el último leído
     last_id = Message.objects.aggregate(Max('update_id'))
     offset = 0
     if last_id["update_id__max"] is not None:
         offset = int(last_id["update_id__max"]) + 1
 
-    # Construir la llamada con el offset adecuado
-    url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/getUpdates?offset="+str(offset)
-    
-    response = requests.get(url)
+    listen_url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/getUpdates?offset="+str(offset)    
+    response = requests.get(listen_url)
     response_json = response.json()
-    messages = response_json['result']
+    messages = response_json['result']    
 
-    # Grabar los mensajes en la base de datos
-    for m in messages:
-        print(m['message']['text']+" - "+str(m['update_id']))
-        new_message =  Message(text=m['message']['text'], date=timezone.now(), update_id = str(m['update_id']))
+    reply_url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
+    for m in messages:        
+        received_user_id = m['message']['from']['id']
+        received_text = m['message']['text']
+        received_update_id = str(m['update_id'])
+        print(received_text+" - "+str(received_update_id)+" - "+str(received_user_id))
+        new_message =  Message(text=received_text, date=timezone.now(), update_id = received_update_id)
         new_message.save()
-        url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
         params = {
             'text': "Noted \'"+m['message']['text']+"\'",
-            'chat_id': "43010062"
+            'chat_id': received_user_id
         }
-        response = requests.post(url, params=params)
+        response = requests.post(reply_url, params=params)
 
 my_cron_job()
 
