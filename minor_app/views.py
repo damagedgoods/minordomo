@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
-from .models import Message
+from .models import Message, Report
 import json
 
 def index(request):    
@@ -30,7 +30,12 @@ def message(request, message_id):
     message = Message.objects.get(pk=message_id)
     message.read_status = True
     message.save()
+
+    reports = Report.objects.filter(message=message)
+    print("R: "+str(reports))
+
     context = {
-        "message": message
+        "message": message,
+        "reports": reports
     }
     return HttpResponse(template.render(context, request))

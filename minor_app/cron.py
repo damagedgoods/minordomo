@@ -2,6 +2,7 @@ import sys, os, django, datetime
 from django.utils import timezone
 from django.db.models import Max
 from dotenv import load_dotenv
+import wikipediaapi
 
 def my_cron_job():
 
@@ -11,7 +12,7 @@ def my_cron_job():
     django.setup()
 
     import requests
-    from minor_app.models import Message
+    from minor_app.models import Message, Report
     from datetime import datetime
 
     print("Starting cronjob "+str(datetime.now()))
@@ -34,6 +35,11 @@ def my_cron_job():
         print(received_text+" - "+str(received_update_id)+" - "+str(received_user_id))
         new_message =  Message(text=received_text, date=timezone.now(), update_id = received_update_id)
         new_message.save()
+
+        # Preparing the report
+        new_report = Report(message=new_message, content="Probando")
+        new_report.save()
+
         params = {
             'text': "Noted \'"+m['message']['text']+"\'",
             'chat_id': received_user_id

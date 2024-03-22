@@ -8,3 +8,10 @@ class Message(models.Model):
 
     def __str__(self):
         return "in "+str(self.date)+", "+self.text+" was said"
+
+class Report(models.Model):
+    message = models.ForeignKey(Message, on_delete=models.CASCADE)
+    content = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.message.text +" "+self.content
