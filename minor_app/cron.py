@@ -1,5 +1,6 @@
 import sys, os, django, datetime
 from django.utils import timezone
+from django.utils.text import slugify
 from django.db.models import Max
 from dotenv import load_dotenv
 import wikipediaapi
@@ -32,6 +33,8 @@ def my_cron_job():
         received_user_id = m['message']['from']['id']
         received_text = m['message']['text']
         received_update_id = str(m['update_id'])
+        print("New URL -> "+slugify(received_text))
+
         print(received_text+" - "+str(received_update_id)+" - "+str(received_user_id))
         new_message =  Message(text=received_text, date=timezone.now(), update_id = received_update_id)
         new_message.save()
