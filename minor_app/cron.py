@@ -32,8 +32,7 @@ def my_cron_job():
     for m in messages:        
         received_user_id = m['message']['from']['id']
         received_text = m['message']['text']
-        received_update_id = str(m['update_id'])
-        print("New URL -> "+slugify(received_text))
+        received_update_id = str(m['update_id'])        
 
         print(received_text+" - "+str(received_update_id)+" - "+str(received_user_id))
         new_message =  Message(text=received_text, date=timezone.now(), update_id = received_update_id)
@@ -44,7 +43,7 @@ def my_cron_job():
         new_report.save()
 
         # Preparing the reply
-        reply_content = "New report: <a href='"+os.environ.get('BASE_URL')+"message/"+str(new_message.id)+"'>"+m['message']['text']+"</a>"
+        reply_content = "New report: <a href='"+os.environ.get('BASE_URL')+"message/"+new_message.slug+"'>"+m['message']['text']+"</a>"
         #reply_content_url = os.environ.get('BASE_URL')+"message/"+str(new_message.id)
         #reply_content_title = m['message']['text']
         #reply_content = "New report: ["+reply_content_url+"]("+reply_content_title+")"

@@ -15,6 +15,9 @@ class Message(models.Model):
         if not self.id:
             self.slug = slugify(self.text)
         super(Message, self).save(*args, **kwargs)    
+    
+    def get_absolute_url(self):
+        return reverse("article_detail", kwargs={"slug": self.slug})  # new        
 
 class Report(models.Model):
     message = models.ForeignKey(Message, on_delete=models.CASCADE)

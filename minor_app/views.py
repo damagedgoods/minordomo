@@ -25,9 +25,9 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))  
 
-def message(request, message_id):    
+def message(request, slug):
     template = loader.get_template("message.html")
-    message = Message.objects.get(pk=message_id)
+    message = Message.objects.get(slug=slug)
     message.read_status = True
     message.save()
     reports = Report.objects.filter(message=message)

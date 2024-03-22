@@ -17,7 +17,7 @@
 	    <ul>
             {% for m in page_obj.object_list %}
             <li>
-                <a href="./message/{{ m.id }}">
+                <a href="./message/{{ m.slug }}">
                     <span class="supertitle">{{ m.date|date:"d/m/Y H:i" }}</span>
                     <span class="title {% if not m.read_status %} unread {% endif %}">{{ m.text }}</span>
                 </a>
