@@ -25,7 +25,7 @@ def my_cron_job():
     listen_url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/getUpdates?offset="+str(offset)    
     response = requests.get(listen_url)
     response_json = response.json()
-    messages = response_json['result']    
+    messages = response_json['result']
 
     reply_url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
     for m in messages:        
@@ -40,9 +40,16 @@ def my_cron_job():
         new_report = Report(message=new_message, content="Probando")
         new_report.save()
 
+        # Preparing the reply
+        reply_content = "New report: <a href='"+os.environ.get('BASE_URL')+"message/"+str(new_message.id)+"'>"+m['message']['text']+"</a>"
+        #reply_content_url = os.environ.get('BASE_URL')+"message/"+str(new_message.id)
+        #reply_content_title = m['message']['text']
+        #reply_content = "New report: ["+reply_content_url+"]("+reply_content_title+")"
+        #print(reply_content)
         params = {
-            'text': "Noted \'"+m['message']['text']+"\'",
-            'chat_id': received_user_id
+            'text': reply_content,
+            'chat_id': received_user_id,
+            'parse_mode': "HTML"
         }
         response = requests.post(reply_url, params=params)
 

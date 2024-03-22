@@ -30,9 +30,7 @@ def message(request, message_id):
     message = Message.objects.get(pk=message_id)
     message.read_status = True
     message.save()
-
     reports = Report.objects.filter(message=message)
-    print("R: "+str(reports))
 
     context = {
         "message": message,
