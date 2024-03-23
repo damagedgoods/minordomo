@@ -14,7 +14,10 @@
 <body>
 
     <div id="main">
-	    <ul>
+        {% if not page_obj.object_list %}
+            <span>No messages yet</span>
+        {% else %}
+        <ul>
             {% for m in page_obj.object_list %}
             <li>
                 <a href="./message/{{ m.slug }}">
@@ -23,7 +26,7 @@
                 </a>
             </li>
             {% endfor %}
-        </ul>
+        </ul>                
         <div id="paginator">
             <div>
             {% if page_obj.has_previous %}        
@@ -37,6 +40,8 @@
             {% endif %}
             </div>
         </div>
+        {% endif %}
+
     </div>
 </body>
 </html>
