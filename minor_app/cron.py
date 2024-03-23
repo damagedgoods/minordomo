@@ -36,7 +36,7 @@ def my_cron_job():
 
         # Preparing the report. First, extract the command
         received_text_words = received_text.split()
-        command = received_text_words[0]
+        command = received_text_words[0].lower()
         search_text = " ".join(received_text_words[1:])
         if search_text == "":
             search_text = received_text
