@@ -13,17 +13,20 @@ def my_cron_job():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'minordomo.settings')
     django.setup()
     import requests
-    from minor_app.models import Message, Report
+    from minor_app.models import Message, Report, Variable
     from datetime import datetime
     reply_url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/sendMessage"
 
-    print("Starting cronjob "+str(datetime.now()))
-
     # Extract unread messages
-    last_id = Message.objects.aggregate(Max('update_id'))
+    last_id_results = Variable.objects.filter(name="LAST_ID")
+    if not last_id_results:
+        last_id_obj =  Variable(name="LAST_ID", value=None)
+    else:
+        last_id_obj = last_id_results[0]
+    
     offset = 0
-    if last_id["update_id__max"] is not None:
-        offset = int(last_id["update_id__max"]) + 1
+    if last_id_obj.value is not None:
+        offset = int(last_id_obj.value) + 1
     listen_url = "https://api.telegram.org/bot"+os.environ.get('TELEGRAM_TOKEN')+"/getUpdates?offset="+str(offset)    
     messages = requests.get(listen_url).json()['result']
     
@@ -41,6 +44,22 @@ def my_cron_job():
         if search_text == "":
             search_text = received_text
 
+        # Muevo el id para anotarlo como procesado
+        last_id_obj.value = received_update_id
+        last_id_obj.save()
+
+        # Compruebo si ya existe
+        existing = False
+        if Message.objects.filter(text=search_text):
+            reply_content = "Already exists"
+            params = {
+                'text': reply_content,
+                'chat_id': received_user_id,
+                'parse_mode': "HTML"
+            }
+            response = requests.post(reply_url, params=params)
+            continue
+
         new_message =  Message(text=search_text, date=timezone.now(), update_id = received_update_id)        
         print(new_message.text+" - "+str(new_message.update_id)+" - "+str(received_user_id))
 
@@ -48,7 +67,6 @@ def my_cron_job():
         new_report = Report(message=new_message, content=report_content)     
         if command == "concept" or command == "c":
             # If it's a term, search the text in wikipedia
-            print("Buscando concepto "+search_text)
             search_results = wikipedia.search(search_text)            
             if search_results:
                 try:
@@ -60,19 +78,15 @@ def my_cron_job():
             new_message.category = Message.Category.CONCEPT
         elif command == "music" or command == "m":
             # If it's music, search spotify
-            #print("Buscando música "+search_text)        
             new_message.category = Message.Category.MUSIC
 
         else:
             # If it's other, I don't know
-            print("Buscando otra cosa "+search_text)        
             new_message.category = Message.Category.UNKNOWN
         
         new_message.save()
         new_report.content = report_content
         new_report.save()
-
-        #print("Categoría: "+str(Message.Category(new_message.category).label))
 
         # Preparing the reply
         reply_content = "New "+Message.Category(new_message.category).label.lower()+" report: <a href='"+os.environ.get('BASE_URL')+"message/"+new_message.slug+"'>"+new_message.text+"</a>"

@@ -33,3 +33,11 @@ class Report(models.Model):
 
     def __str__(self):
         return self.message.text +" "+self.content
+    
+class Variable(models.Model):
+
+    name = models.CharField(max_length=200)
+    value = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.name)+" -> "+str(self.value)
