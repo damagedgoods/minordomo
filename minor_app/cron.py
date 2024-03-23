@@ -3,7 +3,8 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.db.models import Max
 from dotenv import load_dotenv
-import wikipediaapi
+# import wikipediaapi
+import wikipedia
 
 def my_cron_job():
 
@@ -39,15 +40,22 @@ def my_cron_job():
         new_message.save()
 
         # Preparing the report
-        new_report = Report(message=new_message, content="Probando")
+        # Search the text in wikipedia
+        search_results = wikipedia.search(received_text)
+        report_content = ""
+        if search_results:
+            try:
+                report_content = wikipedia.summary(search_results[0], auto_suggest=False)
+            except:
+                print("Error retrieving "+search_results[0])
+        else:
+            print("No results found for '{}'.".format(received_text))
+
+        new_report = Report(message=new_message, content=report_content)        
         new_report.save()
 
         # Preparing the reply
         reply_content = "New report: <a href='"+os.environ.get('BASE_URL')+"message/"+new_message.slug+"'>"+m['message']['text']+"</a>"
-        #reply_content_url = os.environ.get('BASE_URL')+"message/"+str(new_message.id)
-        #reply_content_title = m['message']['text']
-        #reply_content = "New report: ["+reply_content_url+"]("+reply_content_title+")"
-        #print(reply_content)
         params = {
             'text': reply_content,
             'chat_id': received_user_id,
