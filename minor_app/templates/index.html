@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="{% static 'js/script.js' %}" charset="utf-8"></script>
 </head>
 
 <body>
@@ -16,7 +17,20 @@
     <div id="main">
         {% if not page_obj.object_list %}
             <span>No messages yet</span>
-        {% else %}
+        {% else %}        
+
+        <form id="filteringForm" action="." method="GET">
+            {% csrf_token %}
+            <select id="categoryFilter" name="categoryFilter" onchange="javascript:submitFilteringForm()">
+                <option value="0" {% if categoryFilter == "0" %}selected{% endif %}>All</option>
+                <option value="2" {% if categoryFilter == "2" %}selected{% endif %}>Concepts</option>
+                <option value="3" {% if categoryFilter == "3" %}selected{% endif %}>Music</option>
+            </select>
+            <select id="orderSelection" name="orderSelection" onchange="javascript:submitFilteringForm()">
+                <option value="0" {% if orderSelection == "0" %}selected{% endif %}>Recent first</option>
+                <option value="1" {% if orderSelection == "1" %}selected{% endif %}>Name</option>
+            </select>            
+        </form>
         <ul>
             {% for m in page_obj.object_list %}
             <li>
@@ -31,13 +45,13 @@
         <div id="paginator">
             <div>
             {% if page_obj.has_previous %}        
-                <a href="?page={{page_obj.previous_page_number }}">&larr;</a>
+                <a href="?page={{page_obj.previous_page_number }}&orderSelection={{ orderSelection }}&categoryFilter={{ categoryFilter }}">&larr;</a>
             {% endif %}
             </div>
             <span>{{ page_obj.number}}</span>
             <div class="right">
             {% if page_obj.has_next %}
-                <a class="right" href="?page={{page_obj.next_page_number }}">&rarr;</a>        
+                <a class="right" href="?page={{page_obj.next_page_number }}&orderSelection={{ orderSelection }}&categoryFilter={{ categoryFilter }}">&rarr;</a>        
             {% endif %}
             </div>
         </div>
