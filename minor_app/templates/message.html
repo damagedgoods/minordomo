@@ -13,7 +13,8 @@
 
 <body>
     <div id="main" class="container">
-        <a href="/minordomo/" class="small_link">&larr; Back</a>
+        <a href="/minordomo/" class="small_link">&larr; Back</a><br/><br/>
+        <span class="category category_{{ message.category }}">{{ message.get_category_display.upper }}</span>
         <h1>{{ message.text }}</h1>
         <h2>Reports</h2>
         

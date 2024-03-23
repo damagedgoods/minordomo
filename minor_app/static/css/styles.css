@@ -45,6 +45,7 @@ ul li .supertitle {
     display: block;
     font-size: 12px;
     color: #888;
+    float: right;
 }
 
 ul li .title {
@@ -120,4 +121,25 @@ div#paginator div a {
 div#paginator div.right {    
     flex-grow: 0;
     text-align: right;
+}
+
+span.category {
+    display: inline-block;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px;
+    color: white;
+}
+
+span.category_1 {
+    background-color: #ff2277;    
+}
+
+span.category_2 {
+    background-color: #2bb436;
+}
+
+span.category_3 {
+    background-color: #184ae1;
 }
