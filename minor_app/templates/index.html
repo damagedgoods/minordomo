@@ -15,9 +15,6 @@
 <body>
 
     <div id="main">
-        {% if not page_obj.object_list %}
-            <span>No messages yet</span>
-        {% else %}        
 
         <form id="filteringForm" action="." method="GET">
             {% csrf_token %}
@@ -31,6 +28,11 @@
                 <option value="1" {% if orderSelection == "1" %}selected{% endif %}>Name</option>
             </select>            
         </form>
+
+        {% if not page_obj.object_list %}
+            <span>No messages yet</span>
+        {% else %}
+
         <ul>
             {% for m in page_obj.object_list %}
             <li>
