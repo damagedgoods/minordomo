@@ -12,16 +12,18 @@
 </head>
 
 <body>
-    <div id="main" class="container">
+    <div id="main_message">
         <a href="/minordomo/" class="small_link">&larr; Back</a><br/><br/>
-        <span class="category category_{{ message.category }}">{{ message.get_category_display.upper }}</span>
-        <h1>{{ message.text }}</h1>
-        <h2>Reports</h2>
-        
-        {% for r in reports %}
-            <p>{{ r.content }}</p>
-        {% endfor %}
+        <div class="container">
+            <span class="category category_{{ message.category }}">{{ message.get_category_display.upper }}</span>
+            <h1>{{ message.text }}</h1>
+            <h2>Reports</h2>
+            
+            {% for r in reports %}
+                <p>{{ r.content }}</p>
+            {% endfor %}
 
+        </div>
     </div>
 </body>
 </html>

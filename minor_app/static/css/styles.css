@@ -11,6 +11,8 @@
 
 body {
     background-color: #1F1D2C;
+    text-align: center;
+    padding: 32px;
 }
 
 div#main {
@@ -19,8 +21,14 @@ div#main {
     text-align: center;
 }
 
+div#main_message {
+    margin: 0px auto;
+    width: 800px;
+    text-align: left;
+}
+
 h1 {
-    padding: 40px 0 40px 0
+    margin: 40px 0;
 }
 
 ul {
@@ -63,52 +71,84 @@ ul li .title {
     font-weight: 800;
 }
 
+form {
+    margin: 0 0 32px 0;
+    text-align: left;
+    color: #1F1D2C;
+    
+}
+
+form select {
+    margin: 0 16px 0 0;
+    background-color: #3F3C51;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
 .container {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+    margin: 24px auto;
+    text-align: left;
+    background-color: #3F3C51;
+    border-radius: 8px;
     padding: 40px;
-    width: 1000px;
 }
 
 .container h1 {
+    text-align: left;
     font-size: 48px;
     font-weight: 800;
-    margin: 24px 0 0 0;
+    margin: 24px 0 16px 0;
 }
 
 .container h2 {
+    text-align: left;
     font-size: 24px;
-    margin: 32px 0 0 0;
+    margin: 0 0 0 0;
     font-weight: 600;
 }
 
 .container p {
+    text-align: left;
     font-size: 16px;
     margin: 8px 0 0 0;
-    color: #222;
+    color: white;
     font-weight: 350;
     line-height: 22px;
 }
 
 a.small_link {
     font-size: 14px;
-    color: #111;
+    color: white;
     text-decoration: none;
+    text-align: left;
+    background-color: #3F3C51;
+    padding: 16px;
+    border-radius: 4px;
+    color: #B2B1B9;
+}
+
+a.small_link:hover {
+    background-color: #4B485D;
+    color: white;
 }
 
 div#paginator {
-    margin: 24px 0 0 0;
+    margin: 24px 0 40px 0;
     width:100%;
     text-align: center;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    vertical-align: middle;
 }
 
 div#paginator span {
     display: inline-block;
     flex-grow: 1;
+    
 }
 
 div#paginator div {    
@@ -116,11 +156,20 @@ div#paginator div {
     text-align: left;
 }
 
-div#paginator div a {    
+div#paginator div a {
     font-size: 14px;
-    color: #111;
+    color: white;
     text-decoration: none;
     text-align: left;
+    background-color: #3F3C51;
+    padding: 16px;
+    border-radius: 4px;
+    color: #B2B1B9;
+}
+
+div#paginator div a:hover {
+    background-color: #4B485D;
+    color: white;
 }
 
 div#paginator div.right {    
