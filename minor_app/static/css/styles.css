@@ -1,5 +1,5 @@
 * {
-    color: #333;
+    color: white;
     margin: 0;
     padding: 0;
     font-family: "Inter", sans-serif;
@@ -10,28 +10,33 @@
 }
 
 body {
-    background-color: #f8f8f8;
+    background-color: #1F1D2C;
 }
 
 div#main {
-    margin: 100px auto;
-    width: 600px;
+    margin: 0px auto;
+    width: 480px;
+    text-align: center;
+}
+
+h1 {
+    padding: 40px 0 40px 0
 }
 
 ul {
-    border: 1px solid #ddd;       
     border-radius: 10px;
-    background-color: white;
+    background-color: #3F3C51;
+    text-align: left;
 }
 
 ul li {
     display: block;    
-    border-bottom: 1px solid #ddd;   
-    padding: 16px 24px;  
+    border-bottom: 1px solid #1F1D2C;
+    padding: 24px;
 }
 
 ul li:hover {
-    background-color: #f6f6f6
+    background-color: #4B485D
 }
 
 ul li a {
@@ -44,14 +49,14 @@ ul li a {
 ul li .supertitle {
     display: block;
     font-size: 12px;
-    color: #888;
+    color: #B2B1B9;
     float: right;
 }
 
 ul li .title {
     margin-top: 8px;
     display: block;
-    font-size: 21px;
+    font-size: 24px;
 }
 
 .unread {
@@ -125,21 +130,21 @@ div#paginator div.right {
 
 span.category {
     display: inline-block;
-    border-radius: 3px;
+    border-radius: 4px;
     font-size: 10px;
     font-weight: 600;
-    padding: 3px;
-    color: white;
+    padding: 4px;
+    color: #353535;
 }
 
 span.category_1 {
-    background-color: #ff2277;    
+    background-color: #DFA890;    
 }
 
 span.category_2 {
-    background-color: #2bb436;
+    background-color: #77D7F5;
 }
 
 span.category_3 {
-    background-color: #184ae1;
+    background-color: #ABE08B;
 }

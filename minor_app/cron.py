@@ -88,7 +88,7 @@ def my_cron_job():
         new_report.content = report_content
         new_report.save()
 
-        # Replying
+        # Replying by telegram
         reply_content = "New "+Message.Category(new_message.category).label.lower()+" report: <a href='"+os.environ.get('BASE_URL')+"message/"+new_message.slug+"'>"+new_message.text+"</a>"
         params["text"] = reply_content,
         response = requests.post(telegram_reply_url, params=params)
